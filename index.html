@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="byran"><meta name="description"><title>byran</title><link rel="icon" href="/favicon.ico"><link rel="canonical" href="http://lxang.github.io/"><link rel="stylesheet" href="/fonts/iconfont/iconfont.css"><link rel="stylesheet" href="/css/style.css"><script type="text/javascript">var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?Your baidu Analytics ID";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'Your Google Analytics ID', 'auto');
+ga('send', 'pageview');</script></head><body><div id="main"><header><a href="/." class="logo">byran</a><ul class="nav"><li class="nav-link"><a href="/" class="active">Home</a></li><li class="nav-link"><a href="/archives/" target="_self">Archives</a></li><li class="nav-link"><a href="/categories/" target="_self">Categories</a></li><li class="nav-link"><a href="/tags/" target="_self">Tags</a></li><li class="nav-link"><a href="/about/" target="_self">About</a></li></ul></header><section id="container"><ul class="home"><li class="post-item"><article class="post"><h2 class="post-title"><a href="/2016/08/25/markdown-learning/" class="post-link">markdown-learning</a></h2><span class="post-time">Aug 25, 2016</span><div class="post-content"><h1 id="Markdown学习笔记"><a href="#Markdown学习笔记" class="headerlink" title="Markdown学习笔记"></a>Markdown学习笔记</h1><p>Markdown的官方网站：<a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="external">http://daringfireball.net/projects/markdown/</a></p>
+<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>在段落面前加1~6个#号即为对应级别的标题</p>
+<blockquote>
+<p>#一级标题<br>## 二级标题<br>### 三级标题</p>
+</blockquote>
+<h1 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h1><p>使用*\_包含文本表示强调， 分别对于HTML标签中的\<em\>和\<strong\>标签</strong\></em\></p>
+<blockquote>
+<p><em>这里强调</em><br><strong>这里强调</strong><br><em>这里强调</em><br><strong>这里强调</strong></p>
+</blockquote>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>使用*+-或1.表示无序列表和有序列表</p>
+<p>有序列表</p>
+<ol>
+<li>一</li>
+<li>二</li>
+<li>三</li>
+</ol>
+<p>无序列表</p>
+<ul>
+<li>一</li>
+<li>二</li>
+<li>三</li>
+</ul>
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p>使用[links](url)表示超链接<br>点<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">这里</a>链接到MarkDown官网</p>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>使用![links](url)表示链接到图片<br><img src="http://www.golue.com/uploads/allimg/201012/14225Q942-31.jpg" alt="皮卡皮卡"></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>使用```包含代码片段即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let input = item =&gt; item + 1;</div></pre></td></tr></table></figure></p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>使用>+文本表示引用<br>本文示例参考至</p>
+<blockquote>
+<p><a href="http://daringfireball.net/projects/markdown/syntax#list" target="_blank" rel="external">http://daringfireball.net/projects/markdown/syntax#list</a></p>
+</blockquote>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><p><pre><br>| Tables        | Are           | Cool  |<br>| ————- |:————-:| —–:|<br>| col 3 is      | right-aligned | $1600 |<br>| col 2 is      | centered      |   $12 |<br>| zebra stripes | are neat      |    $1 |<br></pre><br>| Tables        | Are           | Cool  |<br>| ————- |:————-:| —–:|<br>| col 3 is      | right-aligned | $1600 |<br>| col 2 is      | centered      |   $12 |<br>| zebra stripes | are neat      |    $1 |</p>
+<h1 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h1><p>以下字符需要使用\转义, 或使用html转义字符<br>&gt;</p>
+<blockquote>
+<p>\   反斜线<br>`   反引号</p>
+<ul>
+<li>星号<br>_   底线<br>{}  花括号<br>[]  方括号<br>()  括弧<br>#   井字号</li>
+</ul>
+<ul>
+<li>加号</li>
+</ul>
+<ul>
+<li>减号<br>.   英文句点<br>!   惊叹号</li>
+</ul>
+</blockquote>
+</div></article></li></ul><div class="paginator"></div></section><footer><div class="social"><a href="mailto:byran8866@163.com" class="iconfont icon-email"> </a><a href="http://github.com/lxang" class="iconfont icon-github"> </a><a href="/atom.xml" class="iconfont icon-rss"> </a></div><div class="copyright"><p class="power">Powered by <a href="https://hexo.io/">Hexo</a> and Theme by <a href="https://github.com/ahonn/hexo-theme-even"> Even</a></p><p class="since">&copy;2016<span class="heart"><i class="iconfont icon-heart"></i></span><span class="author">byran</span></p></div><label id="back2top"><i class="iconfont icon-up"></i></label></footer></div><script src="/js/zepto.min.js"></script><script src="/js/theme.js"></script></body></html>

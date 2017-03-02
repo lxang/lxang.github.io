@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lxang.github.io/"/>
-  <updated>2016-09-01T17:24:39.263Z</updated>
+  <updated>2017-03-02T16:59:25.939Z</updated>
   <id>http://lxang.github.io/</id>
   
   <author>
@@ -16,13 +16,85 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>github-multiple-accounts-push</title>
+    <link href="http://lxang.github.io/2017/03/01/multiple-github-account-push/"/>
+    <id>http://lxang.github.io/2017/03/01/multiple-github-account-push/</id>
+    <published>2017-03-01T13:01:23.000Z</published>
+    <updated>2017-03-02T16:59:25.939Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="github-multiple-accounts-push"><a href="#github-multiple-accounts-push" class="headerlink" title="github multiple accounts push"></a>github multiple accounts push</h1><h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><p>今天碰到了一个往公用github账号push commit的需求， 发现使用https协议push返回403错误，使用ssh协议返回Permission denied。</p>
+<a id="more"></a>
+<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>该公用账户的ssh key没有当前机器的公钥；</p>
+<h3 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h3><ol>
+<li>创建新的ssh key<br>因为默认的id_rsa已经被配置到自己的github账户了, 而同一个公钥只能配置一个github账户， 因此需要为新账户生成一个新的公钥。详细可见<a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/" target="_blank" rel="external">官网help</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -f ~/.ssh/id_rsa_new -C &quot;your_email@example.com&quot;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>默认ssh只会读取id_rsa,  为了让ssh识别新的私钥， 需要将其添加到ssh agent<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add ~/.ssh/id_rsa_new</div></pre></td></tr></table></figure></p>
+<p>另外，确保ssh agent是否启动可以通过下面这个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">eval $(ssh-agent -s)</div><div class="line">//启动可以用这个命令</div><div class="line">ssh-agent bash</div></pre></td></tr></table></figure></p>
+<p>以上这些命令， 如果是windows用户（比如我）需要在git bash里执行</p>
+<ol>
+<li><p>添加ssh key到github account<br>登录新的github账户， 在头像处找到Settings -&gt; SSH and GPG keys -&gt; New SSH key/Add SSH key。<br>将新生成的公钥<code>id_rsa_new.pub</code>的内容贴进去， title可以自己起个名字。<br>保持即可。</p>
+</li>
+<li><p>修改ssh config<br>这个时候你在本地就有了两个ssh秘钥, <code>id_rsa</code>(默认)， <code>id_rsa_new</code>。github提交的时候怎么让它用<code>id_rsa_new</code>来认证呢？可以通过在~/.ssh/目录下配置config(如果没有， 可以自己建一个，听说linux下用的文件名是ssh_config)来实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#a account</div><div class="line">Host github.com</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id_rsa</div><div class="line"></div><div class="line">#b account</div><div class="line">Host github.com-b</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id_rsa_new</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>测试一下， 配置是否生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com-b</div></pre></td></tr></table></figure></p>
+<p>然后， 别着急，这里还没有结束哦。<br>你需要把要使用<code>id_rsa_new</code>提交的git仓库的远程地址Host改成git@github.com-b<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin git@github.com-b:...</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;github-multiple-accounts-push&quot;&gt;&lt;a href=&quot;#github-multiple-accounts-push&quot; class=&quot;headerlink&quot; title=&quot;github multiple accounts push&quot;&gt;&lt;/a&gt;github multiple accounts push&lt;/h1&gt;&lt;h3 id=&quot;问题背景&quot;&gt;&lt;a href=&quot;#问题背景&quot; class=&quot;headerlink&quot; title=&quot;问题背景&quot;&gt;&lt;/a&gt;问题背景&lt;/h3&gt;&lt;p&gt;今天碰到了一个往公用github账号push commit的需求， 发现使用https协议push返回403错误，使用ssh协议返回Permission denied。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="base" scheme="http://lxang.github.io/categories/base/"/>
+    
+    
+      <category term="base" scheme="http://lxang.github.io/tags/base/"/>
+    
+      <category term="github" scheme="http://lxang.github.io/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>部署hexo遇到的问题汇总</title>
+    <link href="http://lxang.github.io/2016/09/04/%E9%83%A8%E7%BD%B2hexo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
+    <id>http://lxang.github.io/2016/09/04/部署hexo遇到的问题汇总/</id>
+    <published>2016-09-04T05:12:15.000Z</published>
+    <updated>2017-03-02T16:20:59.409Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-上传静态文件后，-yourname-github-com主页访问404"><a href="#1-上传静态文件后，-yourname-github-com主页访问404" class="headerlink" title="1. 上传静态文件后， yourname.github.com主页访问404"></a>1. 上传静态文件后， yourname.github.com主页访问404</h1><p>新用户可能是没有通过Github验证邮箱</p>
+<a id="more"></a>
+<h1 id="2-更换主题后，-样式不更新"><a href="#2-更换主题后，-样式不更新" class="headerlink" title="2. 更换主题后， 样式不更新"></a>2. 更换主题后， 样式不更新</h1><p>原因： 配置文件主题项的更改不会regeneration样式文件， 需要先clean在generate<br>解决方法： 删除博客目录下的.deploy_git文件夹， 重新generate<br>github Issues链接点<a href="https://github.com/hexojs/hexo/issues/595" target="_blank" rel="external">这里</a></p>
+<h1 id="3-下载的主题目录无法提交到git"><a href="#3-下载的主题目录无法提交到git" class="headerlink" title="3. 下载的主题目录无法提交到git"></a>3. 下载的主题目录无法提交到git</h1><p>原因：从github download下来的主题文件有自己的git仓库， 没有纳入博客的git仓库<br>解决方法：删除主题目录下的.git目录</p>
+<h1 id="4-categories和tags路径访问404"><a href="#4-categories和tags路径访问404" class="headerlink" title="4. categories和tags路径访问404"></a>4. categories和tags路径访问404</h1><p>原因： categories和tags路径下的页面不会自动生成， 需手动生成<br>解决方法： hexo new pages categories/tags. 注意修改文件的layout配置为对应的主题模板<br>github Issues链接点<a href="github Issues链接点[这里](https://github.com/hexojs/hexo/issues/595">这里</a></p>
+<h1 id="5-在home页显示文章摘要"><a href="#5-在home页显示文章摘要" class="headerlink" title="5. 在home页显示文章摘要"></a>5. 在home页显示文章摘要</h1><p>在MD文件中使用&lt;!--more--&gt;标签， 主页就不会显示该标签一下的内容</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-上传静态文件后，-yourname-github-com主页访问404&quot;&gt;&lt;a href=&quot;#1-上传静态文件后，-yourname-github-com主页访问404&quot; class=&quot;headerlink&quot; title=&quot;1. 上传静态文件后， yourname.github.com主页访问404&quot;&gt;&lt;/a&gt;1. 上传静态文件后， yourname.github.com主页访问404&lt;/h1&gt;&lt;p&gt;新用户可能是没有通过Github验证邮箱&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="npm" scheme="http://lxang.github.io/categories/npm/"/>
+    
+    
+      <category term="hexo" scheme="http://lxang.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>markdown-learning</title>
     <link href="http://lxang.github.io/2016/08/25/markdown-learning/"/>
     <id>http://lxang.github.io/2016/08/25/markdown-learning/</id>
     <published>2016-08-25T13:01:23.000Z</published>
-    <updated>2016-09-01T17:24:39.263Z</updated>
+    <updated>2017-03-02T16:20:59.409Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Markdown学习笔记"><a href="#Markdown学习笔记" class="headerlink" title="Markdown学习笔记"></a>Markdown学习笔记</h1><p>Markdown的官方网站：<a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="external">http://daringfireball.net/projects/markdown/</a></p>
+<a id="more"></a>
 <h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>在段落面前加1~6个#号即为对应级别的标题</p>
 <blockquote>
 <p>#一级标题<br>## 二级标题<br>### 三级标题</p>
@@ -51,25 +123,49 @@
 <blockquote>
 <p><a href="http://daringfireball.net/projects/markdown/syntax#list" target="_blank" rel="external">http://daringfireball.net/projects/markdown/syntax#list</a></p>
 </blockquote>
-<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><p><pre><br>| Tables        | Are           | Cool  |<br>| ————- |:————-:| —–:|<br>| col 3 is      | right-aligned | $1600 |<br>| col 2 is      | centered      |   $12 |<br>| zebra stripes | are neat      |    $1 |<br></pre><br>| Tables        | Are           | Cool  |<br>| ————- |:————-:| —–:|<br>| col 3 is      | right-aligned | $1600 |<br>| col 2 is      | centered      |   $12 |<br>| zebra stripes | are neat      |    $1 |</p>
-<h1 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h1><p>以下字符需要使用\转义, 或使用html转义字符<br>&gt;</p>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><pre>
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+</pre>
+
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h1><p>以下字符需要使用\转义, 或使用html转义字符</p>
 <blockquote>
-<p>\   反斜线<br>`   反引号</p>
-<ul>
-<li>星号<br>_   底线<br>{}  花括号<br>[]  方括号<br>()  括弧<br>#   井字号</li>
-</ul>
-<ul>
-<li>加号</li>
-</ul>
-<ul>
-<li>减号<br>.   英文句点<br>!   惊叹号</li>
-</ul>
+<p>\   反斜线<br>`   反引号<br>*   星号<br>_   底线<br>{}  花括号<br>[]  方括号<br>()  括弧<br>#   井字号<br>+   加号<br>-   减号<br>.   英文句点<br>!   惊叹号</p>
 </blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Markdown学习笔记&quot;&gt;&lt;a href=&quot;#Markdown学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Markdown学习笔记&quot;&gt;&lt;/a&gt;Markdown学习笔记&lt;/h1&gt;&lt;p&gt;Markdown的官方网站：&lt;a href=&quot;http://
+      &lt;h1 id=&quot;Markdown学习笔记&quot;&gt;&lt;a href=&quot;#Markdown学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Markdown学习笔记&quot;&gt;&lt;/a&gt;Markdown学习笔记&lt;/h1&gt;&lt;p&gt;Markdown的官方网站：&lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;http://daringfireball.net/projects/markdown/&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     

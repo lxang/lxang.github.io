@@ -532,10 +532,12 @@ footer {
   .post .post-content img {
     display: inline-block;
     max-width: 100%; }
-  .post .post-content > ul,
-  .post .post-content > ol {
+  .post .post-content > ul {
     padding: 0;
     list-style: inside; }
+  .post .post-content > ol {
+    padding: 0;
+    list-style: inside decimal; }
   .post .post-content > table {
     margin-bottom: 20px;
     border-spacing: 0;
